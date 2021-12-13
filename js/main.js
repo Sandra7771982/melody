@@ -3,6 +3,9 @@ $(document).ready(function () {
   var floorPath =  $(".home-image path"); // каждый отдельный этаж в SVG
   var counterUp = $(".counter-up"); /*кнопка увеличения этажа*/
   var counterDown = $(".counter-down"); /*кнопка уменьшения этажа*/
+  var modal = $(".modal");
+  var modalCloseButton = $(".modal-close-button");
+  var viewFlatsButton = $(".view-flats");
 
   //при наведении мышкой на этаж
   floorPath.on('mouseover', function() {
@@ -10,6 +13,10 @@ $(document).ready(function () {
     currentFloor = $(this).attr('data-floor'); // получение значения текущего этажа
     $('.counter').text(currentFloor); // записываем значение этажа в счетчик справа
   });
+
+  floorPath.on('click', toggleModal); // при клике на этаж вызвать окно
+  modalCloseButton.on('click', toggleModal); // клик на кнопку закрыть окно - окно закрывается
+  viewFlatsButton.on('click', toggleModal);
 
   counterUp.on("click", function(){ // отслеживаем клик по кнопке вверх
     if (currentFloor < 18) { // проверяем значение этажа, оно не должно быть больше 18
@@ -30,4 +37,7 @@ $(document).ready(function () {
       $(`[data-floor=${usCurrentFloor}]`).toggleClass('current-floor');
     }
   });
+  function toggleModal(){ // функция открыть/закрыть окно
+    modal.toggleClass('is-open');
+  }
 });
